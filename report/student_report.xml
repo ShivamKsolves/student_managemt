@@ -1,0 +1,92 @@
+<odoo>
+    <record id="student_report" model="ir.actions.report">
+        <field name="name">Report Card</field>
+        <field name="model">student.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">student_managemt.report_student</field>
+        <field name="report_file">student_managemt.report_student</field>
+        <field name="binding_model_id" ref="model_student_student"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="report_student">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <br/>
+                        <br/>
+                        <ul>
+                            <h2>
+                                Student Name:
+                                <span t-field="o.name"/>
+                            </h2>
+                            email :
+                            <td>
+                                <span t-field="o.email"/>
+                                <br/>
+                            </td>
+                            Gender:
+                            <span t-field="o.gender"/>
+                            <br/>
+                            Father Name:
+                            <span t-field="o.father_name"/>
+                            <br/>
+                            Age:
+                            <span t-field="o.age"/>
+                            <br/>
+                            Blood Group:
+                            <span t-field="o.blood_group"/>
+                            <br/>
+                            Dob:
+                            <span t-field="o.date_of_birth"/>
+                            <br/>
+                            Result:
+                            <span t-field="o.result"/>
+                            <br/>
+                            Subject:
+                            <span t-field="o.subject_ids"/>
+                            <br/>
+                            Branch:
+                            <span t-field="o.branch"/>
+                            <br/>
+                            <br/>
+                        </ul>
+                        <table class="table table-sm o_main_table">
+                            <thead style="display: table-row-group">
+                                <tr>
+                                    <strong>
+                                        <th>Subject</th>
+                                        <th>Marks obtain</th>
+                                        <th>Total Marks</th>
+                                        <th>Pass Fail</th>
+                                    </strong>
+                                </tr>
+                            </thead>
+                            <tbody class="student_tbody">
+<!--  Here i pass in One2many fiels name                              -->
+                                <t t-foreach="o.student_result_ids" t-as="sl">
+                                    <tr>
+                                        <td>
+                                            <span t-field="sl.subject_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="sl.marks_obtain"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="sl.total_marks"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="sl.pass_fail"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

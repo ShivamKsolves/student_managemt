@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_student_student,student.student,model_student_student,,1,1,1,1
+access_student_subject,student.subject,model_student_subject,,1,1,1,1
+access_student_result,student.result,model_student_result,,1,1,1,1
+access_update_data,update.data,model_update_data,,1,1,1,1
+access_import_student_wiz,import.student.wiz,model_import_student_wiz,,1,1,1,1

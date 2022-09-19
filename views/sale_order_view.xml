@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="restaurant_staff_sale_order_view" model="ir.ui.view">
+            <field name="name">restaurant.staff.sale.order.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="test"/>
+                </xpath>
+<!-- Through this way we can also add field inside the model-->
+<!--                <field name="payment_term_id" position="after">-->
+<!--                    <field name="test"/>-->
+<!--                </field>-->
+            </field>
+        </record>
+    </data>
+    <record model="ir.ui.view" id="sale_order_view_inherit">
+        <field name="name">sale.order.view.inherit1</field>
+        <field name="model">sale.order</field>
+        <!--Here i will add ref inside external id-->
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!--For adding field inside sales module inside through inherit-->
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_uom_qty']"
+                   position="after">
+                <field name="Total_Weight"/>
+            </xpath>
+            <!--<xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='tax_id']"-->
+            <!--position="after">-->
+            <!--<field name="Tax_discount"/>-->
+            <!-- </xpath>-->
+        </field>
+    </record>
+
+</odoo>
+

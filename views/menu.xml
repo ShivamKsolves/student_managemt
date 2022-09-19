@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    THis is form view of  student_subject-->
+    <record id="subject_form_view" model="ir.ui.view">
+        <field name="name">subject For Students</field>
+        <field name="model">student.subject</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"></field>
+                            <!--                            <field name="student_id"/>-->
+                        </group>
+                    </group>
+                    <!--                    <notebook>-->
+                    <!--                        <page string="Student Subject" name="Student_Subject">-->
+                    <!--                            <group>-->
+                    <!--                                &lt;!&ndash;<field name="name"></field>&ndash;&gt;-->
+                    <!--                            </group>-->
+                    <!--                        </page>-->
+                    <!--                    </notebook>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--    THis is tree view of  student_subject-->
+    <record id="subject_tree_view" model="ir.ui.view">
+        <field name="name">subject Tree View</field>
+        <field name="model">student.subject</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"></field>
+                <!--<field name="student_id"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_student_subject" model="ir.actions.act_window">
+        <field name="name">Subject</field>
+        <field name="res_model">student.subject</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="another_subject_root"
+              name="Configuration"
+              parent="menu_student_root"
+              sequence="0"/>
+
+    <menuitem id="subject_configuration"
+              name="Subject"
+              action="action_student_subject"
+              parent="another_subject_root"
+              sequence="2"/>
+    <menuitem id="student_data_import"
+              name="Import Student"
+              action="import_student_wizard_action"
+              parent="another_subject_root"
+              sequence="2"
+    />
+
+
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_report_inherit" inherit_id="sale.report_saleorder_document">
+<!--For adding field in report pdf inside-->
+        <xpath expr="//div[@class='row mt32 mb32']" position="inside">
+            <div class="row mt32 mb32" id="tset_references">
+                <div t-if="doc.test" class="col-auto col-3 mw-100 mb-2">
+                    <strong>Test Field:</strong>
+                    <p class="m-0" t-field="doc.test"/>
+                </div>
+            </div>
+        </xpath>
+<!--For adding Field in sales line inside-->
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead[@style='display: table-row-group']/tr"
+               position="inside">
+            <th name="th_total_taxes" class="text-middle">Total Weight</th>
+        </xpath>
+<!--For adding field inside value in sales line inside-->
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody[@class='sale_tbody']/t[@t-foreach='doc.order_line']/tr/t"
+               position="inside">
+            <td name="td_total_taxes" class="text-middle">
+                <span t-field="line.Total_Weight"/>
+            </td>
+        </xpath>
+
+    </template>
+</odoo>

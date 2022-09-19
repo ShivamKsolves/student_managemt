@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="update_form_view" model="ir.ui.view">
+        <field name="name">Update For Students</field>
+        <field name="model">update.data</field>
+        <field name="arch" type="xml">
+            <form string="Update Student Data">
+                <group>
+                    <field name="subject_id"></field>
+                    <field name="total_marks"></field>
+                    <field name="marks_obtain"></field>
+                    <field name="pass_fail"></field>
+                </group>
+                <footer>
+                    <button name="action_update" string="Updated" type="object" class="btn-primary"
+                            data-hotkey="q"/>
+                    <button string="Discard" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_update_wizard" model="ir.actions.act_window">
+        <field name="name">Update Student</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">update.data</field>
+        <field name="view_mode">form</field>
+        <!--        <field name="view_id" ref="view_update_Data_form"></field>-->
+        <field name="target">new</field>
+    </record>
+
+</odoo>

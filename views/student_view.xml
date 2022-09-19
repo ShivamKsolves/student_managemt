@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--        THis is form view how to create Kanban view in custom odoo module-->
+    <record id="view_student_kanban" model="ir.ui.view">
+        <field name="name">marks Kanban View</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"></field>
+                <field name="gender"></field>
+                <field name="age"></field>
+                <field name="id"></field>
+                <field name="student_img"></field>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img class="o_kanban_image_inner_pic" alt="Avatar"
+                                     t-att-src="kanban_image('student.student', 'student_img',record.id.raw_value)"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <t class="o_kanban_record_title">
+                                    <strong t-esc="record.name.value"/>
+                                </t>
+                                <div t-if="record.age.value">
+                                    <t t-esc="record.age.value"/>
+                                </div>
+                                <div t-if="record.gender.value">
+                                    <t t-esc="record.gender.value"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <!--        THis is form view how to create form view in custom odoo module-->
+    <record id="mark_for_view" model="ir.ui.view">
+        <field name="name">marks For Students</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!--   And THis line will be show in  button on our custom odoo module                -->
+                    <!--  IN states inside whatever fields you will be mentions that button visbible only that states                  -->
+                    <!--                   attrs="{'invisible': ['|', ('module_hr_presence', '=', False)-->
+                    <button name="action_admitted" string="Admitted" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=','draft')]}"></button>
+                    <button name="action_cancel" string="Canceled" type="object" class="oe_highlight"
+                            states="admit,draft"></button>
+                    <!--                    WE can do visible and invisible buton through states and attrs function -->
+                    <button name="action_set_to_draft" string="Set To Draft" type="object"
+                            class="oe_highlight" states="admit,cancel"></button>
+                    <button name="%(student_managemt.action_student_student)d" string="Action Button" type="action"
+                            class="oe_highlight"></button>
+                    <button name="%(student_managemt.action_update_wizard)d" string="Update" type="action"
+                            class="oe_highlight"></button>
+                    <!--  THis LIne show status in our custom developement odoo15 -->
+                    <!-- <field name="state" widget="statusbar" nolabel="1" options="{'clickable':'1'}" statusbar_visible="draft,in_consultation,done" ></field>-->
+                    <field name="state" widget="statusbar"></field>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <group>
+                                <!--Through this we can set image on our form tag inside-->
+                                <field name="student_img" class="oe_avtar" widget="image"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="name"></field>
+                            <field name="email"></field>
+                            <field name="gender"></field>
+                            <field name="father_name"></field>
+                            <field name="blood_group"></field>
+                            <field name="age"></field>
+                            <!--<field name="subject_ids"></field>-->
+                            <field name="subject_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="date_of_birth"></field>
+                            <field name="result"></field>
+                            <field name="branch"></field>
+                        </group>
+                    </group>
+                    <notebook>
+                        <!--                        THis is just show like a button on our notebook on upper side-->
+                        <page string="Student Result" name="Student_Result">
+                            <!--This is One2many field                      -->
+                            <field name="student_result_ids">
+                                <tree>
+                                    <field name="subject_id"></field>
+                                    <field name="marks_obtain"></field>
+                                    <field name="total_marks"></field>
+                                    <field name="pass_fail"></field>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="subject_id"></field>
+                                        <field name="marks_obtain"></field>
+                                        <field name="total_marks"></field>
+                                        <field name="pass_fail"></field>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--    THis is Tree view how to create tree view in custom odoo module-->
+    <record id="mark_tree_view" model="ir.ui.view">
+        <field name="name">marks Tree View</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"></field>
+                <field name="gender"></field>
+                <field name="father_name"></field>
+                <field name="blood_group"></field>
+                <field name="age"></field>
+                <field name="date_of_birth"></field>
+                <field name="result"></field>
+                <field name="branch"></field>
+            </tree>
+        </field>
+    </record>
+    <!--        THis is search view how to create search  view in custom odoo module-->
+    <record id="mark_search_view" model="ir.ui.view">
+        <field name="name">marks Search View</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="student name"
+                       filter_domain="['|',('name','ilike',self),('age','ilike',self)]"></field>
+                <field name="age" string="student age"></field>
+                <field name="gender" string="Gender"></field>
+                <!--THis is filter tag through filter data in our custom module -->
+                <filter name="filter_male" string="Male" domain="[('gender','=','male')]"></filter>
+                <filter name="filter_female" string="Female" domain="[('gender','=','female')]"></filter>
+                <group expand="0" string="Group By">
+                    <filter string="Gender" name="group_by_gender" context="{'group_by': 'gender'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_student_student" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">student.student</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <menuitem id="menu_student_root"
+              name="Student"
+              web_icon="student_managemt,static/description/icon.png"
+              active="True"
+    >
+        <menuitem id="menu_student_student"
+                  name="Studentinfo"
+                  sequence="2"/>
+
+        <menuitem id="menu_student_another_work"
+                  name="Student"
+                  action="action_student_student"
+                  sequence="0"/>
+    </menuitem>
+
+</odoo>
